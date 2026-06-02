@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengumuman Kelulusan & Rapor - SMPN 2 Bathin Solapan</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .navbar {
+            background-color: #ffffff;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        .navbar-brand img {
+            max-height: 75px;
+            width: auto;
+            margin-right: 15px;
+            object-fit: contain;
+            display: block;
+        }
+        .brand-text h5 {
+            font-size: 1.2rem;
+            color: #1e3c72;
+            font-weight: 700;
+        }
+        .brand-text small {
+            color: #6c757d;
+            font-size: 0.85rem;
+        }
+        .hero-section {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            border-radius: 15px;
+            margin-top: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .hero-section h2 {
+            font-size: 1.6rem;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+        }
+        .search-box {
+            background: white;
+            padding: 25px 20px;
+            border-radius: 15px;
+            margin: -25px auto 30px auto;
+            max-width: 550px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+        .search-box label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #495057;
+        }
+        .input-group {
+            display: flex;
+        }
+        .form-control {
+            flex: 1;
+            padding: 12px 15px;
+            font-size: 1rem;
+            border: 2px solid #ced4da;
+            border-top-left-radius: 8px;
+            border-bottom-left-radius: 8px;
+            outline: none;
+        }
+        .form-control:focus {
+            border-color: #2a5298;
+        }
+        .btn-search {
+            background-color: #1e3c72;
+            color: white;
+            border: none;
+            padding: 0 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-top-right-radius: 8px;
+            border-bottom-right-radius: 8px;
+            cursor: pointer;
+        }
+        .error-message {
+            color: #dc3545;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 10px;
+            display: none;
+        }
+        
+        .selamat-box {
+            background: linear-gradient(135deg, #11998e, #38ef7d);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 6px 15px rgba(25, 135, 84, 0.2);
+            animation: popIn 0.5s ease-out;
+        }
+        .selamat-box h4 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+        .selamat-box p {
+            font-size: 1rem;
+            opacity: 0.95;
+        }
+
+        .result-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+            display: none;
+        }
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #f4f7f6;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .student-info h3 {
+            color: #1e3c72;
+            font-size: 1.4rem;
+            margin-bottom: 2px;
+        }
+        .student-info p {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        .badge-lulus {
+            background-color: #198754;
+            color: white;
+            padding: 8px 25px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 10px rgba(25,135,84,0.3);
+        }
+        .table-title {
+            color: #495057;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        .table-responsive {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+        th, td {
+            padding: 10px 12px;
+            border: 1px solid #dee2e6;
+        }
+        th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: #495057;
+        }
+        .text-start {
+            text-align: left;
+        }
+        .fw-bold {
+            font-weight: 700;
+        }
+        .bg-total {
+            background-color: #e7f1ff;
+            color: #0c63e4;
+        }
+        .bg-rata {
+            background-color: #d1e7dd;
+            color: #0f5132;
+        }
+        footer {
+            background-color: white;
+            text-align: center;
+            padding: 20px 0;
+            border-top: 1px solid #dee2e6;
+            margin-top: 45px;
+            font-size: 0.85rem;
+            color: #6c757d;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.9); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @media (max-width: 576px) {
+            .hero-section { padding: 30px 15px; }
+            .hero-section h2 { font-size: 1.3rem; }
+            .result-header { text-align: center; justify-content: center; }
+            th, td { padding: 8px; font-size: 0.9rem; }
+            .selamat-box h4 { font-size: 1.25rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-brand">
+                <img id="logoSekolah" src="./logo.jpg.jpeg" alt="Logo Sekolah" onerror="cobaFormatSistem(this)">
+                <div class="brand-text">
+                    <h5>SMPN 2 BATHIN SOLAPAN</h5>
+                    <small>Sistem Informasi Kelulusan Online</small>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="hero-section">
+            <h2>PENGUMUMAN KELULUSAN</h2>
+            <p>Tahun Pelajaran 2025/2026</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="search-box">
+            <label for="nisnInput">Masukkan NISN Siswa :</label>
+            <div class="input-group">
+                <input type="text" id="nisnInput" class="form-control" placeholder="Contoh: 0117760700" autocomplete="off">
+                <button class="btn-search" type="button" onclick="cariSiswa()">Cari</button>
+            </div>
+            <div id="errorMsg" class="error-message">NISN tidak ditemukan! Periksa kembali nomor Anda.</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="hasilPencarian" class="result-card">
+            
+            <div id="boxSelamat" class="selamat-box">
+                <h4 id="teksSelamat">🎉 SELAMAT! DIKAU DINYATAKAN LULUS 🎉</h4>
+                <p>Selamat atas keberhasilanmu! Pertahankan prestasimu di jenjang pendidikan selanjutnya.</p>
+            </div>
+
+            <div class="result-header">
+                <div class="student-info">
+                    <h3 id="resNama">-</h3>
+                    <p>NISN: <span id="resNisn">-</span></p>
+                </div>
+                <div>
+                    <span class="badge-lulus" id="resStatus">LULUS</span>
+                </div>
+            </div>
+
+            <div class="table-title">Rincian Nilai Rapor Peserta Didik:</div>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Mata Pelajaran</th>
+                            <th>Nilai</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="text-start">1. Pendidikan Agama dan Budi Pekerti</td><td class="fw-bold" id="nAgama">-</td></tr>
+                        <tr><td class="text-start">2. Pendidikan Pancasila dan Kewarganegaraan (PKn)</td><td class="fw-bold" id="nPkn">-</td></tr>
+                        <tr><td class="text-start">3. Bahasa Indonesia</td><td class="fw-bold" id="nBind">-</td></tr>
+                        <tr><td class="text-start">4. Matematika</td><td class="fw-bold" id="nMtk">-</td></tr>
+                        <tr><td class="text-start">5. Ilmu Pengetahuan Alam (IPA)</td><td class="fw-bold" id="nIpa">-</td></tr>
+                        <tr><td class="text-start">6. Ilmu Pengetahuan Sosial (IPS)</td><td class="fw-bold" id="nIps">-</td></tr>
+                        <tr><td class="text-start">7. Bahasa Inggris</td><td class="fw-bold" id="nBing">-</td></tr>
+                        <tr><td class="text-start">8. Pendidikan Jasmani, Olahraga, dan Kesehatan</td><td class="fw-bold" id="nPjok">-</td></tr>
+                        <tr><td class="text-start">9. TIK / Informatika</td><td class="fw-bold" id="nTik">-</td></tr>
+                        <tr><td class="text-start">10. Prakarya</td><td class="fw-bold" id="nPrakarya">-</td></tr>
+                        <tr><td class="text-start">11. Budaya Melayu Riau (BMR)</td><td class="fw-bold" id="nBmr">-</td></tr>
+                        <tr class="bg-total fw-bold">
+                            <td class="text-start">TOTAL JUMLAH NILAI</td>
+                            <td id="nJumlah">-</td>
+                        </tr>
+                        <tr class="bg-rata fw-bold">
+                            <td class="text-start">RATA-RATA RAPOR</td>
+                            <td id="nRata">-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 SMPN 2 Bathin Solapan. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Logika cerdas jika penamaan windows menyembunyikan ekstensi ganda asli file
+        let langkahCari = 0;
+        function cobaFormatSistem(img) {
+            const variasiNama = ['logo.jpg', 'logo.jpeg', 'logo.jpg.jpeg', 'logo.PNG', 'logo.png.png'];
+            if (langkahCari < variasiNama.length) {
+                img.src = "./" + variasiNama[langkahCari];
+                langkahCari++;
+            }
+        }
+
+        const dataSiswa = {
+            "0117760700": { nama: "Aina Fahriza", status: "Lulus", agama: "95.45", pkn: "94.97", bind: "95.20", mtk: "92.77", ipa: "96.48", ips: "95.90", bing: "93.48", pjok: "96.37", tik: "94.38", prakarya: "94.76", bmr: "94.73", jumlah: "1044.49", rata: "94.95" },
+            "0107614567": { nama: "Amri Pradana Marpaung", status: "Lulus", agama: "90.58", pkn: "92.32", bind: "89.37", mtk: "87.13", ipa: "87.42", ips: "90.50", bing: "90.55", pjok: "96.13", tik: "92.03", prakarya: "89.16", bmr: "91.80", jumlah: "996.99", rata: "90.64" },
+            "0102877526": { nama: "Annisa Qiramadanti", status: "Lulus", agama: "90.93", pkn: "91.90", bind: "91.18", mtk: "90.58", ipa: "94.85", ips: "92.73", bing: "91.48", pjok: "94.42", tik: "91.48", prakarya: "91.62", bmr: "90.48", jumlah: "1011.65", rata: "91.97" },
+            "0116277408": { nama: "Arya Pratama", status: "Lulus", agama: "88.95", pkn: "90.78", bind: "91.92", mtk: "87.68", ipa: "88.13", ips: "90.15", bing: "87.55", pjok: "93.95", tik: "90.48", prakarya: "89.62", bmr: "88.72", jumlah: "987.93", rata: "89.81" },
+            "0103361917": { nama: "Brayen Natanael Gultom", status: "Lulus", agama: "94.15", pkn: "91.30", bind: "93.20", mtk: "87.72", ipa: "93.30", ips: "92.97", bing: "92.25", pjok: "95.67", tik: "90.35", prakarya: "90.06", bmr: "90.42", jumlah: "1011.39", rata: "91.94" },
+            "0101339149": { nama: "Elisabeth Sihotang", status: "Lulus", agama: "95.20", pkn: "90.72", bind: "92.67", mtk: "87.78", ipa: "92.50", ips: "90.73", bing: "90.60", pjok: "94.42", tik: "90.48", prakarya: "90.90", bmr: "88.95", jumlah: "1004.95", rata: "91.36" },
+            "0105161664": { nama: "Elsa Vania Siregar", status: "Lulus", agama: "95.08", pkn: "91.77", bind: "92.20", mtk: "87.02", ipa: "91.97", ips: "90.55", bing: "88.60", pjok: "94.07", tik: "90.95", prakarya: "90.34", bmr: "89.77", jumlah: "1002.32", rata: "91.12" },
+            "0109178753": { nama: "Frand Moses Simanjuntak", status: "Lulus", agama: "93.08", pkn: "90.37", bind: "89.18", mtk: "87.83", ipa: "87.78", ips: "89.55", bing: "88.92", pjok: "95.00", tik: "90.25", prakarya: "89.62", bmr: "89.37", jumlah: "990.95", rata: "90.09" },
+            "0118858249": { nama: "Gilbert Parasian Ambarita", status: "Lulus", agama: "96.37", pkn: "94.15", bind: "93.50", mtk: "90.30", ipa: "94.25", ips: "93.03", bing: "92.78", pjok: "96.37", tik: "94.03", prakarya: "92.76", bmr: "92.87", jumlah: "1030.41", rata: "93.67" },
+            "0113437681": { nama: "Grace Kelly Pardosi", status: "Lulus", agama: "95.55", pkn: "92.65", bind: "94.27", mtk: "91.53", ipa: "95.30", ips: "94.32", bing: "91.37", pjok: "96.25", tik: "92.55", prakarya: "93.18", bmr: "92.08", jumlah: "1029.05", rata: "93.55" },
+            "0112494446": { nama: "Hagayeta Simanungkalit", status: "Lulus", agama: "94.85", pkn: "90.53", bind: "89.02", mtk: "87.37", ipa: "88.38", ips: "90.20", bing: "88.72", pjok: "91.53", tik: "89.77", prakarya: "90.34", bmr: "89.13", jumlah: "989.84", rata: "89.99" },
+            "0112976207": { nama: "Jhon Faider Butar-Butar", status: "Lulus", agama: "92.85", pkn: "90.37", bind: "89.18", mtk: "87.07", ipa: "90.03", ips: "89.20", bing: "88.72", pjok: "94.65", tik: "89.95", prakarya: "89.20", bmr: "89.67", jumlah: "990.89", rata: "90.08" },
+            "0108616702": { nama: "Keyla Nadhira", status: "Lulus", agama: "88.48", pkn: "89.65", bind: "88.60", mtk: "85.97", ipa: "85.78", ips: "88.67", bing: "88.18", pjok: "91.77", tik: "89.65", prakarya: "89.20", bmr: "89.07", jumlah: "975.02", rata: "88.64" },
+            "0118098333": { nama: "Lara Sati Batubara", status: "Lulus", agama: "90.47", pkn: "91.48", bind: "92.38", mtk: "87.83", ipa: "90.10", ips: "91.38", bing: "89.95", pjok: "93.37", tik: "91.02", prakarya: "90.70", bmr: "90.95", jumlah: "999.63", rata: "90.88" },
+            "0092825910": { nama: "Moharomah", status: "Lulus", agama: "89.87", pkn: "91.53", bind: "91.97", mtk: "88.35", ipa: "92.20", ips: "91.27", bing: "89.60", pjok: "92.47", tik: "90.83", prakarya: "91.14", bmr: "89.42", jumlah: "998.65", rata: "90.79" },
+            "0108455900": { nama: "Muhammad Fariq", status: "Lulus", agama: "90.47", pkn: "89.88", bind: "87.95", mtk: "85.47", ipa: "89.05", ips: "88.13", bing: "87.37", pjok: "93.05", tik: "89.65", prakarya: "88.74", bmr: "88.60", jumlah: "978.36", rata: "88.94" },
+            "0111825028": { nama: "Muhammad Renzo", status: "Lulus", agama: "90.12", pkn: "89.48", bind: "87.95", mtk: "84.65", ipa: "86.85", ips: "88.55", bing: "88.48", pjok: "93.28", tik: "89.95", prakarya: "87.62", bmr: "89.13", jumlah: "976.06", rata: "88.73" },
+            "0103655441": { nama: "Muhammad Yudha Aditya", status: "Lulus", agama: "90.12", pkn: "91.27", bind: "89.55", mtk: "87.13", ipa: "85.67", ips: "88.85", bing: "90.08", pjok: "94.53", tik: "91.62", prakarya: "88.04", bmr: "91.68", jumlah: "988.54", rata: "89.87" },
+            "0102076614": { nama: "Mychel Tri Putra Manurung", status: "Lulus", agama: "93.08", pkn: "90.53", bind: "91.73", mtk: "87.53", ipa: "91.55", ips: "88.02", bing: "88.55", pjok: "95.65", tik: "90.07", prakarya: "88.88", bmr: "89.67", jumlah: "995.26", rata: "90.48" },
+            "0107452104": { nama: "Naisya Adelya", status: "Lulus", agama: "90.93", pkn: "91.60", bind: "91.97", mtk: "87.83", ipa: "91.38", ips: "91.38", bing: "90.48", pjok: "93.83", tik: "91.25", prakarya: "90.32", bmr: "90.48", jumlah: "1001.45", rata: "91.04" },
+            "0096891848": { nama: "Najwa Kasania Oktarinjani", status: "Lulus", agama: "89.87", pkn: "89.60", bind: "89.37", mtk: "85.83", ipa: "90.27", ips: "88.67", bing: "88.48", pjok: "91.18", tik: "89.77", prakarya: "88.34", bmr: "89.30", jumlah: "980.68", rata: "89.15" },
+            "0104717847": { nama: "Natalia Christy Manalu", status: "Lulus", agama: "92.65", pkn: "91.53", bind: "90.18", mtk: "86.32", ipa: "90.08", ips: "91.20", bing: "89.83", pjok: "92.12", tik: "90.07", prakarya: "91.06", bmr: "89.60", jumlah: "994.64", rata: "90.42" },
+            "0117980134": { nama: "Nurayhan Trisyaputra", status: "Lulus", agama: "89.30", pkn: "89.48", bind: "88.02", mtk: "85.32", ipa: "85.80", ips: "88.03", bing: "88.02", pjok: "92.65", tik: "89.42", prakarya: "88.60", bmr: "88.25", jumlah: "972.89", rata: "88.44" },
+            "0102552229": { nama: "Reyhan Syahputra", status: "Lulus", agama: "89.42", pkn: "91.78", bind: "88.67", mtk: "85.67", ipa: "86.85", ips: "88.85", bing: "90.20", pjok: "93.48", tik: "91.50", prakarya: "88.74", bmr: "91.10", jumlah: "986.26", rata: "89.66" },
+            "0098863172": { nama: "Rezky Mutia", status: "Lulus", agama: "89.88", pkn: "89.67", bind: "88.53", mtk: "85.43", ipa: "86.25", ips: "89.27", bing: "87.60", pjok: "91.28", tik: "89.65", prakarya: "88.74", bmr: "88.83", jumlah: "975.13", rata: "88.65" },
+            "0105649178": { nama: "Rizky Saputra", status: "Lulus", agama: "90.58", pkn: "89.27", bind: "88.92", mtk: "85.67", ipa: "87.82", ips: "87.82", bing: "86.73", pjok: "92.63", tik: "91.88", prakarya: "89.02", bmr: "89.27", jumlah: "979.61", rata: "89.06" },
+            "0108354846": { nama: "Shem Alvaro Firdaus", status: "Lulus", agama: "88.58", pkn: "91.78", bind: "91.38", mtk: "87.37", ipa: "88.92", ips: "89.97", bing: "89.97", pjok: "95.25", tik: "91.25", prakarya: "90.50", bmr: "90.90", jumlah: "995.87", rata: "90.53" },
+            "0106742094": { nama: "Syifa Nur Fadhilah", status: "Lulus", agama: "88.70", pkn: "90.72", bind: "91.85", mtk: "86.67", ipa: "88.02", ips: "90.08", bing: "90.48", pjok: "90.58", tik: "89.88", prakarya: "91.04", bmr: "89.53", jumlah: "987.55", rata: "89.78" },
+            "0113457919": { nama: "Vidia Sisilia Prima", status: "Lulus", agama: "91.17", pkn: "91.65", bind: "90.18", mtk: "88.30", ipa: "92.20", ips: "92.02", bing: "90.18", pjok: "93.17", tik: "89.77", prakarya: "91.76", bmr: "89.18", jumlah: "999.58", rata: "90.87" },
+            "0093779079": { nama: "Yogi Marito Marpaung", status: "Lulus", agama: "89.38", pkn: "87.60", bind: "86.18", mtk: "83.72", ipa: "83.92", ips: "86.97", bing: "85.97", pjok: "93.13", tik: "87.65", prakarya: "87.78", bmr: "87.30", jumlah: "959.60", rata: "87.24" },
+            "0101897740": { nama: "Zara Putri Pranata", status: "Lulus", agama: "89.88", pkn: "88.72", bind: "87.25", mtk: "84.18", ipa: "84.73", ips: "87.43", bing: "87.53", pjok: "88.70", tik: "88.82", prakarya: "88.60", bmr: "88.23", jumlah: "964.07", rata: "87.64" },
+            "0114490404": { nama: "Zefanya Septiani Aritonang", status: "Lulus", agama: "95.43", pkn: "90.48", bind: "92.50", mtk: "87.48", ipa: "91.38", ips: "90.73", bing: "90.78", pjok: "94.42", tik: "93.27", prakarya: "91.90", bmr: "92.92", jumlah: "1011.29", rata: "91.94" },
+            "0112003174": { nama: "Afdhal Pratama", status: "Lulus", agama: "88.12", pkn: "90.37", bind: "87.95", mtk: "85.55", ipa: "87.55", ips: "88.02", bing: "87.67", pjok: "92.65", tik: "90.72", prakarya: "89.02", bmr: "88.83", jumlah: "976.45", rata: "88.77" },
+            "0104288257": { nama: "Aluna Tampubolon", status: "Lulus", agama: "94.62", pkn: "90.72", bind: "90.48", mtk: "86.60", ipa: "91.38", ips: "90.55", bing: "89.07", pjok: "90.58", tik: "90.60", prakarya: "91.48", bmr: "89.55", jumlah: "995.63", rata: "90.51" },
+            "0105119866": { nama: "Andreas Novrialdy Bagariang", status: "Lulus", agama: "85.22", pkn: "81.88", bind: "80.17", mtk: "78.58", ipa: "79.05", ips: "83.22", bing: "81.58", pjok: "86.85", tik: "81.70", prakarya: "82.16", bmr: "84.38", jumlah: "904.79", rata: "82.25" },
+            "0105192685": { nama: "Anitia Jevayona Situmorang", status: "Lulus", agama: "96.83", pkn: "94.27", bind: "95.20", mtk: "90.47", ipa: "95.37", ips: "94.32", bing: "92.78", pjok: "95.60", tik: "93.80", prakarya: "92.34", bmr: "94.27", jumlah: "1035.25", rata: "94.11" },
+            "0108924815": { nama: "Aurel", status: "Lulus", agama: "89.65", pkn: "90.83", bind: "91.62", mtk: "88.18", ipa: "93.50", ips: "92.02", bing: "89.48", pjok: "91.65", tik: "89.77", prakarya: "91.34", bmr: "89.53", jumlah: "997.57", rata: "90.69" },
+            "0103010074": { nama: "Dahnovan Putra Olvino", status: "Lulus", agama: "87.88", pkn: "89.42", bind: "88.60", mtk: "85.73", ipa: "84.90", ips: "88.08", bing: "88.25", pjok: "93.60", tik: "89.30", prakarya: "88.18", bmr: "88.37", jumlah: "972.31", rata: "88.39" },
+            "0109994325": { nama: "Deo Oktara", status: "Lulus", agama: "90.00", pkn: "93.67", bind: "90.90", mtk: "87.48", ipa: "89.50", ips: "89.97", bing: "91.67", pjok: "95.78", tik: "91.85", prakarya: "89.88", bmr: "92.15", jumlah: "1002.85", rata: "91.17" },
+            "0106149290": { nama: "Fadila Puja Amanda", status: "Lulus", agama: "88.93", pkn: "91.00", bind: "89.43", mtk: "85.32", ipa: "87.90", ips: "89.85", bing: "89.08", pjok: "93.48", tik: "89.77", prakarya: "90.48", bmr: "89.67", jumlah: "984.91", rata: "89.54" },
+            "0111377077": { nama: "Faransiskus Xaferius Paska", status: "Lulus", agama: "92.32", pkn: "90.27", bind: "90.30", mtk: "86.90", ipa: "86.02", ips: "89.03", bing: "89.97", pjok: "92.90", tik: "89.80", prakarya: "87.48", bmr: "88.38", jumlah: "983.37", rata: "89.40" },
+            "0103269703": { nama: "Fhatarul Ivander Khalfani", status: "Lulus", agama: "89.75", pkn: "92.45", bind: "92.57", mtk: "88.42", ipa: "91.27", ips: "91.80", bing: "91.90", pjok: "96.60", tik: "94.08", prakarya: "91.90", bmr: "92.68", jumlah: "1013.42", rata: "92.13" },
+            "0104860575": { nama: "Firsty Ranita Ritonga", status: "Lulus", agama: "91.97", pkn: "91.07", bind: "89.67", mtk: "85.78", ipa: "87.32", ips: "88.02", bing: "88.60", pjok: "90.23", tik: "89.30", prakarya: "89.50", bmr: "89.08", jumlah: "980.54", rata: "89.14" },
+            "0107035338": { nama: "Gita Jelita Simamora", status: "Lulus", agama: "93.15", pkn: "88.97", bind: "91.10", mtk: "83.05", ipa: "86.53", ips: "88.73", bing: "86.05", pjok: "88.62", tik: "86.28", prakarya: "87.68", bmr: "89.32", jumlah: "969.48", rata: "88.13" },
+            "3100886833": { nama: "Habib Dwi Ramadhan Husen", status: "Lulus", agama: "90.00", pkn: "91.13", bind: "90.08", mtk: "86.90", ipa: "89.38", ips: "91.38", bing: "89.55", pjok: "95.43", tik: "91.13", prakarya: "89.50", bmr: "90.02", jumlah: "994.50", rata: "90.41" },
+            "0105678718": { nama: "Hainauli Yolanda Simbolon", status: "Lulus", agama: "93.62", pkn: "89.30", bind: "90.25", mtk: "87.30", ipa: "90.45", ips: "89.32", bing: "88.60", pjok: "93.72", tik: "90.65", prakarya: "91.50", bmr: "89.42", jumlah: "994.13", rata: "90.38" },
+            "0107052353": { nama: "Jeremi Eben Purba", status: "Lulus", agama: "95.20", pkn: "91.83", bind: "91.48", mtk: "88.77", ipa: "93.55", ips: "92.43", bing: "90.90", pjok: "96.07", tik: "92.18", prakarya: "91.06", bmr: "90.95", jumlah: "1014.42", rata: "92.22" },
+            "0114267212": { nama: "Lydia Naomi Simamora", status: "Lulus", agama: "95.78", pkn: "90.42", bind: "90.55", mtk: "87.25", ipa: "91.62", ips: "90.08", bing: "88.72", pjok: "93.25", tik: "91.25", prakarya: "90.92", bmr: "90.13", jumlah: "999.97", rata: "90.91" },
+            "0117992245": { nama: "Mikhael Manurung", status: "Lulus", agama: "95.67", pkn: "91.02", bind: "91.43", mtk: "89.40", ipa: "92.43", ips: "90.67", bing: "89.13", pjok: "96.48", tik: "91.32", prakarya: "89.50", bmr: "90.08", jumlah: "1007.13", rata: "91.56" },
+            "0107715688": { nama: "Muhammad Rifki Alfiansyah", status: "Lulus", agama: "90.12", pkn: "91.92", bind: "89.73", mtk: "87.25", ipa: "86.72", ips: "90.10", bing: "90.85", pjok: "96.60", tik: "92.38", prakarya: "88.18", bmr: "91.15", jumlah: "995.00", rata: "90.45" },
+            "0115670452": { nama: "Nachila Zasqiamilkha Rumahorbo", status: "Lulus", agama: "96.02", pkn: "96.25", bind: "95.20", mtk: "91.12", ipa: "94.90", ips: "95.43", bing: "93.25", pjok: "96.25", tik: "94.50", prakarya: "94.20", bmr: "94.03", jumlah: "1041.15", rata: "94.65" },
+            "0113250375": { nama: "Nasta Aprina", status: "Lulus", agama: "93.92", pkn: "91.42", bind: "91.32", mtk: "87.18", ipa: "92.55", ips: "91.08", bing: "89.60", pjok: "93.83", tik: "90.35", prakarya: "91.20", bmr: "91.13", jumlah: "1003.58", rata: "91.23" },
+            "0117929858": { nama: "Putra Wahyu Ramadan", status: "Lulus", agama: "93.02", pkn: "96.13", bind: "94.50", mtk: "88.37", ipa: "92.73", ips: "94.73", bing: "93.48", pjok: "96.48", tik: "94.27", prakarya: "92.90", bmr: "93.33", jumlah: "1029.94", rata: "93.63" },
+            "0107805833": { nama: "Rasmita Putri", status: "Lulus", agama: "89.05", pkn: "90.25", bind: "90.55", mtk: "87.83", ipa: "88.92", ips: "90.38", bing: "89.90", pjok: "93.95", tik: "90.48", prakarya: "89.44", bmr: "90.13", jumlah: "990.88", rata: "90.08" },
+            "0109754885": { nama: "Ronal Ronigo Siahaan", status: "Lulus", agama: "89.73", pkn: "89.42", bind: "88.83", mtk: "86.48", ipa: "86.13", ips: "88.32", bing: "88.02", pjok: "95.30", tik: "89.77", prakarya: "87.48", bmr: "89.18", jumlah: "978.66", rata: "88.97" },
+            "0105223921": { nama: "Syukran Katsira", status: "Lulus", agama: "95.43", pkn: "91.07", bind: "90.78", mtk: "87.02", ipa: "91.48", ips: "91.90", bing: "90.48", pjok: "96.37", tik: "90.72", prakarya: "89.16", bmr: "90.72", jumlah: "1005.13", rata: "91.38" },
+            "0113258662": { nama: "Yohanes Ericson Manurung", status: "Lulus", agama: "92.32", pkn: "90.13", bind: "88.55", mtk: "86.67", ipa: "86.85", ips: "88.73", bing: "87.78", pjok: "95.42", tik: "90.37", prakarya: "87.76", bmr: "89.55", jumlah: "984.13", rata: "89.47" },
+            "0109112408": { nama: "Amel Deseska Siahaan", status: "Lulus", agama: "94.55", pkn: "91.72", bind: "92.85", mtk: "86.72", ipa: "92.08", ips: "91.62", bing: "89.78", pjok: "93.25", tik: "91.53", prakarya: "90.94", bmr: "91.18", jumlah: "1006.22", rata: "91.47" },
+            "0106043272": { nama: "Apiyanti", status: "Lulus", agama: "91.27", pkn: "91.48", bind: "91.87", mtk: "86.60", ipa: "91.50", ips: "92.38", bing: "91.20", pjok: "89.97", tik: "88.60", prakarya: "89.80", bmr: "90.47", jumlah: "995.14", rata: "90.47" },
+            "0114425905": { nama: "Enzeli Nurahman Manurung", status: "Lulus", agama: "90.58", pkn: "92.13", bind: "90.90", mtk: "87.02", ipa: "89.97", ips: "91.50", bing: "90.67", pjok: "93.18", tik: "90.12", prakarya: "91.18", bmr: "89.65", jumlah: "996.90", rata: "90.63" },
+            "0109314698": { nama: "Fadhil Eka Ramadhan", status: "Lulus", agama: "89.53", pkn: "90.90", bind: "89.67", mtk: "86.83", ipa: "89.15", ips: "89.67", bing: "88.90", pjok: "96.25", tik: "90.07", prakarya: "89.20", bmr: "90.02", jumlah: "990.19", rata: "90.02" },
+            "0105731994": { nama: "Farras Muna Ariani", status: "Lulus", agama: "95.55", pkn: "94.48", bind: "94.27", mtk: "89.42", ipa: "94.38", ips: "94.20", bing: "92.83", pjok: "96.13", tik: "93.32", prakarya: "94.06", bmr: "92.97", jumlah: "1031.61", rata: "93.78" },
+            "0119857225": { nama: "Georentios P. Sihotang", status: "Lulus", agama: "88.02", pkn: "89.53", bind: "88.67", mtk: "85.90", ipa: "86.27", ips: "87.43", bing: "87.90", pjok: "93.48", tik: "89.65", prakarya: "88.88", bmr: "88.60", jumlah: "974.33", rata: "88.58" },
+            "0105122956": { nama: "Hallena Mutia Simanjuntak", status: "Lulus", agama: "95.43", pkn: "92.78", bind: "92.78", mtk: "89.00", ipa: "92.77", ips: "91.13", bing: "91.32", pjok: "95.00", tik: "92.73", prakarya: "91.26", bmr: "92.15", jumlah: "1016.35", rata: "92.40" },
+            "0118652786": { nama: "Haziq Hazim", status: "Lulus", agama: "94.73", pkn: "93.20", bind: "90.72", mtk: "87.53", ipa: "90.20", ips: "91.27", bing: "91.67", pjok: "95.72", tik: "93.78", prakarya: "91.20", bmr: "93.32", jumlah: "1013.34", rata: "92.12" },
+            "0114895542": { nama: "Ira Fazira", status: "Lulus", agama: "89.30", pkn: "90.83", bind: "91.45", mtk: "84.97", ipa: "88.92", ips: "88.87", bing: "88.03", pjok: "91.50", tik: "90.37", prakarya: "89.78", bmr: "89.55", jumlah: "983.57", rata: "89.42" },
+            "0118548306": { nama: "Kannisa Dartani Inba", status: "Lulus", agama: "89.40", pkn: "90.00", bind: "91.62", mtk: "86.90", ipa: "88.22", ips: "90.27", bing: "90.78", pjok: "92.83", tik: "90.00", prakarya: "90.04", bmr: "89.65", jumlah: "989.71", rata: "89.97" },
+            "0102766358": { nama: "Lamtiur Manullang", status: "Lulus", agama: "90.72", pkn: "90.53", bind: "89.65", mtk: "86.72", ipa: "91.20", ips: "88.60", bing: "87.67", pjok: "92.48", tik: "90.12", prakarya: "91.34", bmr: "89.42", jumlah: "988.45", rata: "89.86" },
+            "0118666877": { nama: "Mika Dwi Putri Purba", status: "Lulus", agama: "94.90", pkn: "89.42", bind: "90.78", mtk: "87.25", ipa: "91.32", ips: "89.60", bing: "90.02", pjok: "92.53", tik: "90.83", prakarya: "90.34", bmr: "89.07", jumlah: "996.06", rata: "90.55" },
+            "0108659997": { nama: "Mikha Delfia Br. Silalahi", status: "Lulus", agama: "95.20", pkn: "90.18", bind: "90.72", mtk: "87.48", ipa: "90.50", ips: "90.50", bing: "90.67", pjok: "93.30", tik: "90.72", prakarya: "91.18", bmr: "89.53", jumlah: "999.98", rata: "90.91" },
+            "0112086484": { nama: "Muhammad Fakih", status: "Lulus", agama: "90.45", pkn: "90.83", bind: "90.20", mtk: "89.53", ipa: "89.57", ips: "90.43", bing: "89.37", pjok: "96.25", tik: "91.02", prakarya: "89.66", bmr: "89.55", jumlah: "996.86", rata: "90.62" },
+            "0103783496": { nama: "Novriel Fabregas Turnip", status: "Lulus", agama: "90.43", pkn: "90.60", bind: "92.97", mtk: "88.65", ipa: "91.97", ips: "89.83", bing: "89.37", pjok: "96.25", tik: "91.13", prakarya: "90.06", bmr: "90.25", jumlah: "1001.51", rata: "91.05" },
+            "0119982075": { nama: "Nowel Glend Jastin Silitonga", status: "Lulus", agama: "91.83", pkn: "90.08", bind: "89.85", mtk: "86.78", ipa: "86.27", ips: "89.08", bing: "90.13", pjok: "93.23", tik: "90.78", prakarya: "89.34", bmr: "89.20", jumlah: "986.57", rata: "89.69" },
+            "0108974708": { nama: "Nur Hafiza", status: "Lulus", agama: "89.77", pkn: "90.25", bind: "89.60", mtk: "86.25", ipa: "88.33", ips: "90.03", bing: "89.67", pjok: "92.07", tik: "89.90", prakarya: "89.46", bmr: "88.95", jumlah: "984.28", rata: "89.48" },
+            "0109538630": { nama: "Rahmat Hidayat", status: "Lulus", agama: "88.70", pkn: "89.90", bind: "89.90", mtk: "87.32", ipa: "87.22", ips: "88.27", bing: "88.85", pjok: "94.67", tik: "90.90", prakarya: "88.50", bmr: "89.78", jumlah: "984.01", rata: "89.46" },
+            "0105601857": { nama: "Shelly Alvira Zifanna", status: "Lulus", agama: "90.12", pkn: "92.13", bind: "91.55", mtk: "87.02", ipa: "91.75", ips: "91.68", bing: "89.67", pjok: "92.42", tik: "91.90", prakarya: "90.90", bmr: "91.25", jumlah: "1000.39", rata: "90.94" },
+            "0118759691": { nama: "Widia Emmyra Prima", status: "Lulus", agama: "90.58", pkn: "92.37", bind: "91.02", mtk: "87.72", ipa: "91.73", ips: "91.50", bing: "90.60", pjok: "94.42", tik: "90.95", prakarya: "91.46", bmr: "91.02", jumlah: "1003.37", rata: "91.22" },
+            "0106741997": { nama: "Wisnu Kurniawan", status: "Lulus", agama: "89.07", pkn: "91.13", bind: "89.67", mtk: "87.13", ipa: "89.68", ips: "89.73", bing: "90.02", pjok: "96.18", tik: "91.13", prakarya: "88.32", bmr: "90.32", jumlah: "992.38", rata: "90.22" },
+            "0111418021": { nama: "Yohana Josephine", status: "Lulus", agama: "96.60", pkn: "93.78", bind: "95.55", mtk: "91.58", ipa: "96.95", ips: "96.25", bing: "92.90", pjok: "94.07", tik: "93.25", prakarya: "93.90", bmr: "92.33", jumlah: "1037.16", rata: "94.29" },
+            "0115612443": { nama: "Zackia Nasyifa", status: "Lulus", agama: "91.17", pkn: "94.85", bind: "92.32", mtk: "89.70", ipa: "92.65", ips: "92.22", bing: "92.55", pjok: "95.02", tik: "93.27", prakarya: "92.06", bmr: "93.45", jumlah: "1019.26", rata: "92.66" }
+        };
+
+        function cariSiswa() {
+            const inputNisn = document.getElementById("nisnInput").value.trim();
+            const errorMsg = document.getElementById("errorMsg");
+            const resultCard = document.getElementById("hasilPencarian");
+            const boxSelamat = document.getElementById("boxSelamat");
+            const teksSelamat = document.getElementById("teksSelamat");
+
+            if (dataSiswa[inputNisn]) {
+                errorMsg.style.display = "none";
+                const siswa = dataSiswa[inputNisn];
+                
+                document.getElementById("resNama").innerText = siswa.nama;
+                document.getElementById("resNisn").innerText = inputNisn;
+                document.getElementById("resStatus").innerText = siswa.status.toUpperCase();
+                
+                document.getElementById("nAgama").innerText = siswa.agama;
+                document.getElementById("nPkn").innerText = siswa.pkn;
+                document.getElementById("nBind").innerText = siswa.bind;
+                document.getElementById("nMtk").innerText = siswa.mtk;
+                document.getElementById("nIpa").innerText = siswa.ipa;
+                document.getElementById("nIps").innerText = siswa.ips;
+                document.getElementById("nBing").innerText = siswa.bing;
+                document.getElementById("nPjok").innerText = siswa.pjok;
+                document.getElementById("nTik").innerText = siswa.tik;
+                document.getElementById("nPrakarya").innerText = siswa.prakarya;
+                document.getElementById("nBmr").innerText = siswa.bmr;
+                document.getElementById("nJumlah").innerText = siswa.jumlah;
+                document.getElementById("nRata").innerText = siswa.rata;
+
+                // UPDATE NOTIFIKASI KELULUSAN DENGAN NAMA SISWA
+                teksSelamat.innerText = "🎉 SELAMAT, " + siswa.nama.toUpperCase() + " DINYATAKAN " + siswa.status.toUpperCase() + "! 🎉";
+
+                resultCard.style.display = "block";
+            } else {
+                resultCard.style.display = "none";
+                errorMsg.style.display = "block";
+            }
+        }
+
+        document.getElementById("nisnInput").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                cariSiswa();
+            }
+        });
+    </script>
+</body>
+</html>
